@@ -7,8 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-class Matricula {
-    private Double media;
+public class Matricula {
+    private Double notaA;
+    private Double notaB;
+    private Double notaC;
     private Integer usuarioId;
     private Integer cursoId;
 }

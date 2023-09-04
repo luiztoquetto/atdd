@@ -3,7 +3,6 @@ package com.atdd.curso;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,10 +15,5 @@ class CursoController {
         new Curso("Curso 4", 4),
         new Curso("Curso 5", 5)
     );
-
-    @GetMapping("/cursos")
-    List<Curso> all() {
-        return cursos;
-    }
 
 }
