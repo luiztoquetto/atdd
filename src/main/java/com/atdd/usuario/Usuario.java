@@ -1,4 +1,5 @@
 package com.atdd.usuario;
+
 import com.atdd.matricula.Matricula;
 
 import java.util.ArrayList;

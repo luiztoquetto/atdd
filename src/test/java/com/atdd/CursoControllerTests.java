@@ -1,37 +1,30 @@
 package com.atdd;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.mockito.Mockito.when;
+import com.atdd.curso.CursoController;
+import com.atdd.usuario.Usuario;
+import com.atdd.usuario.UsuarioRepositorio;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.atdd.curso.Curso;
-import com.atdd.curso.CursoController;
-import com.atdd.curso.CursoRepositorio;
-import com.atdd.usuario.Usuario;
-import com.atdd.usuario.UsuarioRepositorio;
 
 public class CursoControllerTests {
     @Mock
     private UsuarioRepositorio usuarioRepositorio;
-
-    @Mock
-    private CursoRepositorio cursoRepositorio;
 
     private CursoController cursoController;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        cursoController = new CursoController(usuarioRepositorio, cursoRepositorio);
+        cursoController = new CursoController(usuarioRepositorio);
     }
 
     @Test
