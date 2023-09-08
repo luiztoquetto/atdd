@@ -11,6 +11,5 @@ public class Matricula {
     private Double notaA;
     private Double notaB;
     private Double notaC;
-    private Integer usuarioId;
     private Integer cursoId;
 }
