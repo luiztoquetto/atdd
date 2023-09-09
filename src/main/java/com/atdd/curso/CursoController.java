@@ -1,5 +1,6 @@
 package com.atdd.curso;
 
+import com.atdd.matricula.Matricula;
 import com.atdd.usuario.Usuario;
 import com.atdd.usuario.UsuarioRepositorio;
 
@@ -30,4 +31,17 @@ public class CursoController {
         usuario.adicionarMatricula(cursoId);
     }
 
+    @PostMapping("/finalizarCurso")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void finalizarCurso(
+            @RequestParam(value = "usuarioId", required = true) int usuarioId,
+            @RequestParam(value = "cursoId", required = true) int cursoId) {
+        Usuario usuario = usuarioRepositorio.getUsuarioPorId(usuarioId);
+
+        Matricula matricula = usuario.getMatriculaPorCursoId(cursoId);
+        
+        if (matricula.getMedia() > 7.0)
+            usuario.adicionarMatriculasDisponiveis(3);
+    }
 }

@@ -12,4 +12,8 @@ public class Matricula {
     private Double notaB;
     private Double notaC;
     private Integer cursoId;
+
+    public Double getMedia() {
+        return (notaA + notaB + notaC) / 3;
+    }
 }

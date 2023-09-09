@@ -26,4 +26,16 @@ public class Usuario {
 
         this.matriculas = matriculasDoUsuario;
     }
+
+    public Matricula getMatriculaPorCursoId(int id) {
+        for (Matricula matricula : matriculas)
+            if (matricula.getCursoId() == id)
+                return matricula;
+
+        return null;
+    }
+
+    public void adicionarMatriculasDisponiveis(int qtd) {
+        setQuantidadeDeMatriculasDisponiveis(getQuantidadeDeMatriculasDisponiveis() + qtd);
+    }
 }
