@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-
 public class CursoControllerTests {
     @Mock
     private UsuarioRepositorio usuarioRepositorio;
@@ -43,18 +42,30 @@ public class CursoControllerTests {
     }
 
     @Test
+    void deveRemoverUmPontoAposMatricular() {
+        int usuarioId = 1;
+        int cursoId = 2;
+
+        Usuario usuario = new Usuario("Usuario 1", usuarioId, Arrays.asList(), 1);
+
+        when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuario);
+
+        cursoController.realizarMatricula(usuarioId, cursoId);
+
+        assertEquals(0, usuario.getQuantidadeDeMatriculasDisponiveis());
+    }
+
+    @Test
     void ganhaMatriculaSeMediaMaiorQueSete() {
         int usuarioId = 2;
         int cursoId = 2;
 
         Usuario usuario = new Usuario(
-            "Usuario 2",
-            usuarioId, 
-            Arrays.asList(
-                new Matricula(10.0, 6.0, 10.0, 2)
-            ),
-            1
-        );
+                "Usuario 2",
+                usuarioId,
+                Arrays.asList(
+                        new Matricula(10.0, 6.0, 10.0, 2)),
+                1);
 
         when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuario);
 

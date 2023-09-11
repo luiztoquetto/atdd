@@ -38,4 +38,8 @@ public class Usuario {
     public void adicionarMatriculasDisponiveis(int qtd) {
         setQuantidadeDeMatriculasDisponiveis(getQuantidadeDeMatriculasDisponiveis() + qtd);
     }
+
+    public void removerMatriculasDisponiveis(int qtd) {
+        setQuantidadeDeMatriculasDisponiveis(getQuantidadeDeMatriculasDisponiveis() - qtd);
+    }
 }

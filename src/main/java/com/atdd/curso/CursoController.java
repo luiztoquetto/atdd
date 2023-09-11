@@ -29,6 +29,7 @@ public class CursoController {
             @RequestParam(value = "cursoId", required = true) int cursoId) {
         Usuario usuario = usuarioRepositorio.getUsuarioPorId(usuarioId);
         usuario.adicionarMatricula(cursoId);
+        usuario.removerMatriculasDisponiveis(1);
     }
 
     @PostMapping("/finalizarCurso")
@@ -40,7 +41,7 @@ public class CursoController {
         Usuario usuario = usuarioRepositorio.getUsuarioPorId(usuarioId);
 
         Matricula matricula = usuario.getMatriculaPorCursoId(cursoId);
-        
+
         if (matricula.getMedia() > 7.0)
             usuario.adicionarMatriculasDisponiveis(3);
     }
