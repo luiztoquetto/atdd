@@ -27,6 +27,7 @@ public class CursoControllerTests {
         cursoController = new CursoController(usuarioRepositorio);
     }
 
+    // Leonardo Dimarchi - 200109
     @Test
     void solicitacaoDeMatriculaDeveSerAceita() {
         int usuarioId = 1;
@@ -41,6 +42,7 @@ public class CursoControllerTests {
         assertEquals(1, usuario.getMatriculas().size());
     }
 
+    // Leonardo Dimarchi - 200109
     @Test
     void deveRemoverUmPontoAposMatricular() {
         int usuarioId = 1;
@@ -55,6 +57,7 @@ public class CursoControllerTests {
         assertEquals(0, usuario.getQuantidadeDeMatriculasDisponiveis());
     }
 
+    // Luiz Fernando - 200359
     @Test
     void ganhaMatriculaSeMediaMaiorQueSete() {
         int usuarioId = 2;
