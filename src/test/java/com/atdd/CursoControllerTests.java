@@ -87,9 +87,6 @@ public class CursoControllerTests {
 
         // usuário que não está matriculado no curso 4
         Usuario usuarioNaoMatriculado = new Usuario("Usuario 3", usuarioId, Arrays.asList(), 3);
-
-        // busca pelo usuário no repositório retornando o usuário não matriculado
-        when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuarioNaoMatriculado);
         
         assertThrows(ResponseStatusException.class,()->{
         	cursoController.getCurso(cursoId,usuarioNaoMatriculado);
