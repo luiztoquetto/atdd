@@ -1,16 +1,20 @@
 package com.atdd.curso;
 
-import com.atdd.matricula.Matricula;
-import com.atdd.usuario.Usuario;
-import com.atdd.usuario.UsuarioRepositorio;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.atdd.matricula.Matricula;
+import com.atdd.usuario.Usuario;
+import com.atdd.usuario.UsuarioRepositorio;
 
 import lombok.AllArgsConstructor;
 
@@ -45,4 +49,20 @@ public class CursoController {
         if (matricula.getMedia() > 7.0)
             usuario.adicionarMatriculasDisponiveis(3);
     }
+    
+    @GetMapping("/cursoId")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void getCurso(
+            @RequestParam(value = "cursoId", required = true) int cursoId,
+    		@RequestParam(value = "usuarioNaoMatriculado", required = true) Usuario usuarioNaoMatriculado){
+    	Matricula alunoNaoMatriculado = usuarioNaoMatriculado.getMatriculaPorCursoId(cursoId);
+    		
+       	    if (alunoNaoMatriculado == null) {
+      	        throw new ResponseStatusException(
+        	            HttpStatus.FORBIDDEN, "Você não possui permissão para acessar o curso"
+       	        );
+       	    }
+    }
+
 }

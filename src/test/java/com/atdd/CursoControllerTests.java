@@ -8,12 +8,15 @@ import com.atdd.usuario.UsuarioRepositorio;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 public class CursoControllerTests {
     @Mock
@@ -76,4 +79,36 @@ public class CursoControllerTests {
 
         assertEquals(4, usuario.getQuantidadeDeMatriculasDisponiveis());
     }
+ // Laura Cecilia - 200343
+    @Test
+    void naoAcessaCursoSeNaoMatriculado() {
+        int usuarioId = 3; // ID de um usuário não matriculado
+        int cursoId = 4;   // ID de um curso
+
+        // usuário que não está matriculado no curso 4
+        Usuario usuarioNaoMatriculado = new Usuario("Usuario 3", usuarioId, Arrays.asList(), 3);
+
+        // busca pelo usuário no repositório retornando o usuário não matriculado
+        when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuarioNaoMatriculado);
+        
+        assertThrows(ResponseStatusException.class,()->{
+        	cursoController.getCurso(cursoId,usuarioNaoMatriculado);
+});
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
