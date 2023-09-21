@@ -79,33 +79,39 @@ public class CursoControllerTests {
 
         assertEquals(4, usuario.getQuantidadeDeMatriculasDisponiveis());
     }
- // Laura Cecilia - 200343
+
+    // Laura Cecilia - 200343
     @Test
     void naoAcessaCursoSeNaoMatriculado() {
         int usuarioId = 3; // ID de um usuário não matriculado
-        int cursoId = 4;   // ID de um curso
+        int cursoId = 4; // ID de um curso
 
         // usuário que não está matriculado no curso 4
         Usuario usuarioNaoMatriculado = new Usuario("Usuario 3", usuarioId, Arrays.asList(), 3);
-        
-        assertThrows(ResponseStatusException.class,()->{
-        	cursoController.getCurso(cursoId,usuarioNaoMatriculado);
-});
+
+        assertThrows(ResponseStatusException.class, () -> {
+            cursoController.getCurso(cursoId, usuarioNaoMatriculado);
+        });
     }
-    
+
+    // Vinicius Martins - 224072
+    @Test
+    void naoRecebeMatriculaSeMediaMenorQueSete() {
+        int usuarioId = 2;
+        int cursoId = 2;
+
+        Usuario usuario = new Usuario(
+                "Usuario 2",
+                usuarioId,
+                Arrays.asList(
+                        new Matricula(1.0, 3.0, 10.0, 2)),
+                1);
+
+        when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuario);
+
+        cursoController.finalizarCurso(usuarioId, cursoId);
+
+        assertEquals(1, usuario.getQuantidadeDeMatriculasDisponiveis());
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
