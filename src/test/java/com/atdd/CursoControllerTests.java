@@ -1,6 +1,7 @@
 package com.atdd;
 
 import com.atdd.curso.CursoController;
+import com.atdd.curso.CursoRepositorio;
 import com.atdd.matricula.Matricula;
 import com.atdd.usuario.Usuario;
 import com.atdd.usuario.UsuarioRepositorio;
@@ -21,12 +22,15 @@ public class CursoControllerTests {
     @Mock
     private UsuarioRepositorio usuarioRepositorio;
 
+    @Mock
+    private CursoRepositorio cursoRepositorio;
+
     private CursoController cursoController;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        cursoController = new CursoController(usuarioRepositorio);
+        cursoController = new CursoController(usuarioRepositorio, cursoRepositorio);
     }
 
     // Leonardo Dimarchi - 200109

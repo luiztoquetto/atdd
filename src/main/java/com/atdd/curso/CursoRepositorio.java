@@ -19,4 +19,8 @@ public class CursoRepositorio {
         }
         return null;
     }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
 }

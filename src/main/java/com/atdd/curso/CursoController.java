@@ -1,5 +1,8 @@
 package com.atdd.curso;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +24,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CursoController {
 
+    @Autowired
     private final UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    private final CursoRepositorio cursoRepositorio;
 
     @PostMapping
     @ResponseBody
@@ -47,20 +54,26 @@ public class CursoController {
         if (matricula.getMedia() > 7.0)
             usuario.adicionarMatriculasDisponiveis(3);
     }
-    
+
     @GetMapping("/cursoId")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public void getCurso(
             @RequestParam(value = "cursoId", required = true) int cursoId,
-    		@RequestParam(value = "usuarioNaoMatriculado", required = true) Usuario usuarioNaoMatriculado){
-    	Matricula alunoNaoMatriculado = usuarioNaoMatriculado.getMatriculaPorCursoId(cursoId);
-    		
-       	    if (alunoNaoMatriculado == null) {
-      	        throw new ResponseStatusException(
-        	            HttpStatus.FORBIDDEN, "Você não possui permissão para acessar o curso"
-       	        );
-       	    }
+            @RequestParam(value = "usuarioNaoMatriculado", required = true) Usuario usuarioNaoMatriculado) {
+        Matricula alunoNaoMatriculado = usuarioNaoMatriculado.getMatriculaPorCursoId(cursoId);
+
+        if (alunoNaoMatriculado == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "Você não possui permissão para acessar o curso");
+        }
     }
 
+    // Leonardo Dimarchi - 200109
+    @GetMapping("/")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public List<CursoDto> getCursos() {
+        return cursoRepositorio.getCursos().stream().map(CursoDto::new).toList();
+    }
 }
