@@ -1,4 +1,4 @@
-package com.atdd.matricula;
+package com.atdd.usuario.dominio.entidades;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

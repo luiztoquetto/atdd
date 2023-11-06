@@ -1,9 +1,10 @@
-package com.atdd.curso;
+package com.atdd.curso.presenter.controllers;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,22 +14,47 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.atdd.matricula.Matricula;
-import com.atdd.usuario.Usuario;
-import com.atdd.usuario.UsuarioRepositorio;
+import com.atdd.curso.dominio.repositorios.CursoRepositorio;
+import com.atdd.curso.presenter.dtos.outputs.CursoOutputDto;
+import com.atdd.usuario.dominio.entidades.Matricula;
+import com.atdd.usuario.dominio.entidades.Usuario;
+import com.atdd.usuario.infra.UsuarioRepositorioInMemory;
 
 import lombok.AllArgsConstructor;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/cursos")
 @AllArgsConstructor
 public class CursoController {
 
     @Autowired
-    private final UsuarioRepositorio usuarioRepositorio;
+    private UsuarioRepositorioInMemory usuarioRepositorio;
 
     @Autowired
-    private final CursoRepositorio cursoRepositorio;
+    private CursoRepositorio cursoRepositorio;
+
+    // Leonardo Dimarchi - 200109
+    @GetMapping("/")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public List<CursoOutputDto> getCursos() {
+        return cursoRepositorio.getCursos().stream().map(CursoOutputDto::new).toList();
+    }
+
+    @GetMapping("/cursoId")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void getCurso(
+            @RequestParam(value = "cursoId", required = true) int cursoId,
+            @RequestParam(value = "usuarioNaoMatriculado", required = true) Usuario usuarioNaoMatriculado) {
+        Matricula alunoNaoMatriculado = usuarioNaoMatriculado.getMatriculaPorCursoId(cursoId);
+
+        if (alunoNaoMatriculado == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "Você não possui permissão para acessar o curso");
+        }
+    }
 
     @PostMapping
     @ResponseBody
@@ -55,25 +81,4 @@ public class CursoController {
             usuario.adicionarMatriculasDisponiveis(3);
     }
 
-    @GetMapping("/cursoId")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public void getCurso(
-            @RequestParam(value = "cursoId", required = true) int cursoId,
-            @RequestParam(value = "usuarioNaoMatriculado", required = true) Usuario usuarioNaoMatriculado) {
-        Matricula alunoNaoMatriculado = usuarioNaoMatriculado.getMatriculaPorCursoId(cursoId);
-
-        if (alunoNaoMatriculado == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN, "Você não possui permissão para acessar o curso");
-        }
-    }
-
-    // Leonardo Dimarchi - 200109
-    @GetMapping("/")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public List<CursoDto> getCursos() {
-        return cursoRepositorio.getCursos().stream().map(CursoDto::new).toList();
-    }
 }

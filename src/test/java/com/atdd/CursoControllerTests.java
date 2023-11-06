@@ -1,16 +1,10 @@
 package com.atdd;
 
-import com.atdd.curso.CursoController;
-import com.atdd.curso.CursoRepositorio;
-import com.atdd.matricula.Matricula;
-import com.atdd.usuario.Usuario;
-import com.atdd.usuario.UsuarioRepositorio;
-
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +12,18 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.atdd.curso.infra.CursoRepositorioInMemory;
+import com.atdd.curso.presenter.controllers.CursoController;
+import com.atdd.usuario.dominio.entidades.Matricula;
+import com.atdd.usuario.dominio.entidades.Usuario;
+import com.atdd.usuario.infra.UsuarioRepositorioInMemory;
+
 public class CursoControllerTests {
     @Mock
-    private UsuarioRepositorio usuarioRepositorio;
+    private UsuarioRepositorioInMemory usuarioRepositorio;
 
     @Mock
-    private CursoRepositorio cursoRepositorio;
+    private CursoRepositorioInMemory cursoRepositorio;
 
     private CursoController cursoController;
 

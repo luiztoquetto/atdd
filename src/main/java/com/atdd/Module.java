@@ -3,20 +3,21 @@ package com.atdd;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.atdd.curso.CursoRepositorio;
-import com.atdd.usuario.UsuarioRepositorio;
+import com.atdd.curso.dominio.repositorios.CursoRepositorio;
+import com.atdd.curso.infra.CursoRepositorioInMemory;
+import com.atdd.usuario.infra.UsuarioRepositorioInMemory;
 
 @Configuration
 public class Module {
 
-      @Bean
+    @Bean
     public CursoRepositorio createCursoRepositorio() {
-        return new CursoRepositorio();
+        return new CursoRepositorioInMemory();
     }
 
     @Bean
-    public UsuarioRepositorio createUsuarioRepositorio() {
-        return new UsuarioRepositorio();
+    public UsuarioRepositorioInMemory createUsuarioRepositorio() {
+        return new UsuarioRepositorioInMemory();
     }
 
 }

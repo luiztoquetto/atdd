@@ -1,6 +1,4 @@
-package com.atdd.usuario;
-
-import com.atdd.matricula.Matricula;
+package com.atdd.usuario.dominio.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
