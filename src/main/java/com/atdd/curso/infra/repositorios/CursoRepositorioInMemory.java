@@ -1,4 +1,4 @@
-package com.atdd.curso.infra;
+package com.atdd.curso.infra.repositorios;
 
 import java.util.Arrays;
 import java.util.List;

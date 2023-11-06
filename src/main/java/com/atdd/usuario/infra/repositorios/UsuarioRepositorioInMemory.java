@@ -1,4 +1,4 @@
-package com.atdd.usuario.infra;
+package com.atdd.usuario.infra.repositorios;
 
 import java.util.Arrays;
 import java.util.List;

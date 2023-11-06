@@ -12,11 +12,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.atdd.curso.infra.CursoRepositorioInMemory;
+import com.atdd.curso.infra.repositorios.CursoRepositorioInMemory;
 import com.atdd.curso.presenter.controllers.CursoController;
 import com.atdd.usuario.dominio.entidades.Matricula;
 import com.atdd.usuario.dominio.entidades.Usuario;
-import com.atdd.usuario.infra.UsuarioRepositorioInMemory;
+import com.atdd.usuario.infra.repositorios.UsuarioRepositorioInMemory;
 
 public class CursoControllerTests {
     @Mock

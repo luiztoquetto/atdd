@@ -1,4 +1,4 @@
-package com.atdd.usuario.presenter;
+package com.atdd.usuario.presenter.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
