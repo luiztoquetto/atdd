@@ -39,7 +39,8 @@ public class CursoControllerTests {
         int usuarioId = 1;
         int cursoId = 2;
 
-        Usuario usuario = new Usuario("Usuario 1", usuarioId, Arrays.asList(), 1);
+        Usuario usuario = new Usuario("Usuario 1", 1, Arrays.asList());
+        usuario.setId(usuarioId);
 
         when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuario);
 
@@ -54,7 +55,8 @@ public class CursoControllerTests {
         int usuarioId = 1;
         int cursoId = 2;
 
-        Usuario usuario = new Usuario("Usuario 1", usuarioId, Arrays.asList(), 1);
+        Usuario usuario = new Usuario("Usuario 1", 1, Arrays.asList());
+        usuario.setId(usuarioId);
 
         when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuario);
 
@@ -71,10 +73,10 @@ public class CursoControllerTests {
 
         Usuario usuario = new Usuario(
                 "Usuario 2",
-                usuarioId,
+                1,
                 Arrays.asList(
-                        new Matricula(10.0, 6.0, 10.0, 2)),
-                1);
+                        new Matricula(10.0, 6.0, 10.0, 2)));
+        usuario.setId(usuarioId);
 
         when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuario);
 
@@ -90,7 +92,8 @@ public class CursoControllerTests {
         int cursoId = 4; // ID de um curso
 
         // usuário que não está matriculado no curso 4
-        Usuario usuarioNaoMatriculado = new Usuario("Usuario 3", usuarioId, Arrays.asList(), 3);
+        Usuario usuarioNaoMatriculado = new Usuario("Usuario 3", 3, Arrays.asList());
+        usuarioNaoMatriculado.setId(usuarioId);
 
         assertThrows(ResponseStatusException.class, () -> {
             cursoController.getCurso(cursoId, usuarioNaoMatriculado);
@@ -105,10 +108,10 @@ public class CursoControllerTests {
 
         Usuario usuario = new Usuario(
                 "Usuario 2",
-                usuarioId,
+                1,
                 Arrays.asList(
-                        new Matricula(1.0, 3.0, 10.0, 2)),
-                1);
+                        new Matricula(1.0, 3.0, 10.0, 2)));
+        usuario.setId(usuarioId);
 
         when(usuarioRepositorio.getUsuarioPorId(usuarioId)).thenReturn(usuario);
 

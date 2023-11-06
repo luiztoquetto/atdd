@@ -11,6 +11,6 @@ public class CursoOutputDto {
         name = curso.getName();
     }
 
-    private Integer id;
+    private Long id;
     private String name;
 }

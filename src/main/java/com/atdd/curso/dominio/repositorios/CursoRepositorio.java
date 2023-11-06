@@ -5,7 +5,7 @@ import java.util.List;
 import com.atdd.curso.dominio.entidades.Curso;
 
 public interface CursoRepositorio {
-    abstract Curso getCursoPorId(int id);
+    abstract Curso getCursoPorId(long id);
 
     abstract List<Curso> getCursos();
 

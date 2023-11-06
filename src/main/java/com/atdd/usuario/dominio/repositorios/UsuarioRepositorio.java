@@ -5,7 +5,7 @@ import java.util.List;
 import com.atdd.usuario.dominio.entidades.Usuario;
 
 public interface UsuarioRepositorio {
-    Usuario getUsuarioPorId(int id);
+    Usuario getUsuarioPorId(long id);
 
     List<Usuario> getUsuarios();
 
