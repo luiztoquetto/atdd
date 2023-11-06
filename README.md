@@ -24,3 +24,5 @@ Esse projeto irá contemplar:
     - Pipeline rodando [a preencher]
     - Banco de dados PostgreSQL
     - Rodar na Azure
+
+> Para o banco de dados H2, fizemos um seed dos dados no arquivo `AtddApplication.java`.

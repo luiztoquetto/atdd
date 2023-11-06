@@ -10,4 +10,6 @@ public interface UsuarioRepositorio {
     List<Usuario> getUsuarios();
 
     void salvarUsuario(Usuario usuario);
+
+    void salvarUsuario(List<Usuario> usuarios);
 }

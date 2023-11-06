@@ -10,4 +10,6 @@ public interface CursoRepositorio {
     abstract List<Curso> getCursos();
 
     abstract void salvarCurso(Curso curso);
+
+    abstract void salvarCurso(List<Curso> cursos);
 }

@@ -30,4 +30,8 @@ public class CursoRepositorioInMemory implements CursoRepositorio {
     public void salvarCurso(Curso curso) {
         cursos.add(curso);
     }
+
+    public void salvarCurso(List<Curso> curso) {
+        cursos.addAll(curso);
+    }
 }

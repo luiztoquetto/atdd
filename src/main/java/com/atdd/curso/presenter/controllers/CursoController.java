@@ -18,7 +18,7 @@ import com.atdd.curso.dominio.repositorios.CursoRepositorio;
 import com.atdd.curso.presenter.dtos.outputs.CursoOutputDto;
 import com.atdd.usuario.dominio.entidades.Matricula;
 import com.atdd.usuario.dominio.entidades.Usuario;
-import com.atdd.usuario.infra.UsuarioRepositorioInMemory;
+import com.atdd.usuario.dominio.repositorios.UsuarioRepositorio;
 
 import lombok.AllArgsConstructor;
 
@@ -29,13 +29,13 @@ import lombok.AllArgsConstructor;
 public class CursoController {
 
     @Autowired
-    private UsuarioRepositorioInMemory usuarioRepositorio;
+    private UsuarioRepositorio usuarioRepositorio;
 
     @Autowired
     private CursoRepositorio cursoRepositorio;
 
     // Leonardo Dimarchi - 200109
-    @GetMapping("/")
+    @GetMapping("")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public List<CursoOutputDto> getCursos() {

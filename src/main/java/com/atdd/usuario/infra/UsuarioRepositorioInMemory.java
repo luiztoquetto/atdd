@@ -40,4 +40,8 @@ public class UsuarioRepositorioInMemory implements UsuarioRepositorio {
     public void salvarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
+
+    public void salvarUsuario(List<Usuario> usuarios) {
+        usuarios.addAll(usuarios);
+    }
 }
