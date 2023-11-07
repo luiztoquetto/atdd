@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
+import com.atdd.aula.dominio.entidades.Aula;
+import com.atdd.aula.dominio.repositorios.AulaRepositorio;
 import com.atdd.curso.dominio.entidades.Curso;
 import com.atdd.curso.dominio.repositorios.CursoRepositorio;
 import com.atdd.usuario.dominio.entidades.Matricula;
@@ -32,6 +34,9 @@ public class AtddApplication {
 
 	@Autowired
 	private CursoRepositorio cursoRepositorio;
+
+	@Autowired
+	private AulaRepositorio aulaRepositorio;
 
 	@Bean
 	public ApplicationListener<ApplicationReadyEvent> initializeDatabase() {
@@ -64,8 +69,16 @@ public class AtddApplication {
 					new Curso("Curso 4"),
 					new Curso("Curso 5"));
 
+			List<Aula> aulas = Arrays.asList(
+					new Aula("Aula 1", cursos.get(0)),
+					new Aula("Aula 2", cursos.get(1)),
+					new Aula("Aula 2", cursos.get(2)),
+					new Aula("Aula 3", cursos.get(3)),
+					new Aula("Aula 4", cursos.get(4)));
+
 			cursoRepositorio.salvarCurso(cursos);
 			usuarioRepositorio.salvarUsuario(usuarios);
+			aulaRepositorio.salvarAula(aulas);
 		};
 	}
 
