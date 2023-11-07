@@ -3,6 +3,8 @@ package com.atdd.usuario.dominio.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.atdd.comentario.dominio.entidades.Comentario;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,10 @@ public class Usuario {
             List<Matricula> matriculas) {
         this.name = name;
         this.quantidadeDeMatriculasDisponiveis = quantidadeDeMatriculasDisponiveis;
-        this.matriculas = matriculas;
+        this.matriculas = matriculas.stream().map(matricula -> {
+            matricula.setUsuario(this);
+            return matricula;
+        }).toList();
     }
 
     @Id
@@ -34,6 +39,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Matricula> matriculas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Comentario> comentarios;
 
     public void adicionarMatricula(long cursoId) {
         List<Matricula> matriculasAtuais = new ArrayList<Matricula>(matriculas);

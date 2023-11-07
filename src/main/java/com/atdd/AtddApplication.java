@@ -13,6 +13,8 @@ import org.springframework.core.env.Environment;
 
 import com.atdd.aula.dominio.entidades.Aula;
 import com.atdd.aula.dominio.repositorios.AulaRepositorio;
+import com.atdd.comentario.dominio.entidades.Comentario;
+import com.atdd.comentario.dominio.repositorios.ComentarioRepositorio;
 import com.atdd.curso.dominio.entidades.Curso;
 import com.atdd.curso.dominio.repositorios.CursoRepositorio;
 import com.atdd.usuario.dominio.entidades.Matricula;
@@ -37,6 +39,9 @@ public class AtddApplication {
 
 	@Autowired
 	private AulaRepositorio aulaRepositorio;
+
+	@Autowired
+	private ComentarioRepositorio comentarioRepositorio;
 
 	@Bean
 	public ApplicationListener<ApplicationReadyEvent> initializeDatabase() {
@@ -76,9 +81,15 @@ public class AtddApplication {
 					new Aula("Aula 3", cursos.get(3)),
 					new Aula("Aula 4", cursos.get(4)));
 
+			List<Comentario> comentarios = Arrays.asList(
+					new Comentario("Mensagem de comentario 1", usuarios.get(0), aulas.get(0)),
+					new Comentario("Mensagem de comentario 2", usuarios.get(0), aulas.get(0)),
+					new Comentario("Mensagem de comentario do usuario 2", usuarios.get(1), aulas.get(1)));
+
 			cursoRepositorio.salvarCurso(cursos);
 			usuarioRepositorio.salvarUsuario(usuarios);
 			aulaRepositorio.salvarAula(aulas);
+			comentarioRepositorio.salvarComentario(comentarios);
 		};
 	}
 

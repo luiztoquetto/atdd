@@ -7,10 +7,10 @@ import com.atdd.aula.dominio.entidades.Aula;
 import com.atdd.aula.dominio.repositorios.AulaRepositorio;
 
 public class AulaRepositorioInMemory implements AulaRepositorio {
-    private List<Aula> Aulas = new ArrayList<>();
+    private List<Aula> aulas = new ArrayList<>();
 
     public Aula getAulaPorId(long id) {
-        for (Aula Aula : Aulas) {
+        for (Aula Aula : aulas) {
             if (Aula.getId() == id) {
                 return Aula;
             }
@@ -19,14 +19,14 @@ public class AulaRepositorioInMemory implements AulaRepositorio {
     }
 
     public List<Aula> getAulas() {
-        return Aulas;
+        return aulas;
     }
 
     public void salvarAula(Aula Aula) {
-        Aulas.add(Aula);
+        aulas.add(Aula);
     }
 
     public void salvarAula(List<Aula> Aula) {
-        Aulas.addAll(Aula);
+        aulas.addAll(Aula);
     }
 }
