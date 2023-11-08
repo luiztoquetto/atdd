@@ -8,6 +8,7 @@ import com.atdd.comentario.dominio.repositorios.ComentarioRepositorio;
 
 public class ComentarioRepositorioInMemory implements ComentarioRepositorio {
     private List<Comentario> comentarios = new ArrayList<>();
+    private long nextId = 1;
 
     public Comentario getComentarioPorId(long id) {
         for (Comentario Comentario : comentarios) {
@@ -22,11 +23,19 @@ public class ComentarioRepositorioInMemory implements ComentarioRepositorio {
         return comentarios.stream().filter(comentario -> comentario.getAula().getId() == aulaId).toList();
     }
 
-    public void salvarComentario(Comentario Comentario) {
-        comentarios.add(Comentario);
+    public Comentario salvarComentario(Comentario comentario) {
+        comentario.setId(nextId);
+        comentarios.add(comentario);
+        nextId++;
+        return comentario;
     }
 
-    public void salvarComentario(List<Comentario> Comentario) {
-        comentarios.addAll(Comentario);
+    public List<Comentario> salvarComentario(List<Comentario> comentariosParaSalvar) {
+        for (Comentario comentario : comentariosParaSalvar) {
+            comentario.setId(nextId);
+            comentarios.add(comentario);
+            nextId++;
+        }
+        return comentariosParaSalvar;
     }
 }

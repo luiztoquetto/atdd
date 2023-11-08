@@ -8,6 +8,7 @@ import com.atdd.aula.dominio.repositorios.AulaRepositorio;
 
 public class AulaRepositorioInMemory implements AulaRepositorio {
     private List<Aula> aulas = new ArrayList<>();
+    private long nextId = 1;
 
     public Aula getAulaPorId(long id) {
         for (Aula Aula : aulas) {
@@ -22,11 +23,19 @@ public class AulaRepositorioInMemory implements AulaRepositorio {
         return aulas;
     }
 
-    public void salvarAula(Aula Aula) {
-        aulas.add(Aula);
+    public Aula salvarAula(Aula aula) {
+        aula.setId(nextId);
+        aulas.add(aula);
+        nextId++;
+        return aula;
     }
 
-    public void salvarAula(List<Aula> Aula) {
-        aulas.addAll(Aula);
+    public List<Aula> salvarAula(List<Aula> aulasParaSalvar) {
+        for (Aula aula : aulasParaSalvar) {
+            aula.setId(nextId);
+            aulas.add(aula);
+            nextId++;
+        }
+        return aulasParaSalvar;
     }
 }

@@ -23,11 +23,11 @@ public interface CursoRepositorioJPA extends JpaRepository<Curso, Long>, CursoRe
         return this.findAll();
     }
 
-    default void salvarCurso(Curso curso) {
-        this.save(curso);
+    default Curso salvarCurso(Curso curso) {
+        return this.save(curso);
     }
 
-    default void salvarCurso(List<Curso> cursos) {
-        this.saveAll(cursos);
+    default List<Curso> salvarCurso(List<Curso> cursos) {
+        return this.saveAll(cursos);
     }
 }

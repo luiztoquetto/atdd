@@ -24,11 +24,11 @@ public interface ComentarioRepositorioJPA extends JpaRepository<Comentario, Long
     @Query("SELECT c FROM Comentario c WHERE c.aula.id = :aulaId")
     List<Comentario> getComentariosPorAulaId(@Param("aulaId") long aulaId);
 
-    default void salvarComentario(Comentario Comentario) {
-        this.save(Comentario);
+    default Comentario salvarComentario(Comentario Comentario) {
+        return this.save(Comentario);
     }
 
-    default void salvarComentario(List<Comentario> Comentarios) {
-        this.saveAll(Comentarios);
+    default List<Comentario> salvarComentario(List<Comentario> Comentarios) {
+        return this.saveAll(Comentarios);
     }
 }

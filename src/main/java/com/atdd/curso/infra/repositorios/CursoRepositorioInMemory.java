@@ -13,6 +13,7 @@ public class CursoRepositorioInMemory implements CursoRepositorio {
             new Curso("Curso 3"),
             new Curso("Curso 4"),
             new Curso("Curso 5"));
+    private long nextId = 1;
 
     public Curso getCursoPorId(long id) {
         for (Curso curso : cursos) {
@@ -27,11 +28,19 @@ public class CursoRepositorioInMemory implements CursoRepositorio {
         return cursos;
     }
 
-    public void salvarCurso(Curso curso) {
+    public Curso salvarCurso(Curso curso) {
+        curso.setId(nextId);
         cursos.add(curso);
+        nextId++;
+        return curso;
     }
 
-    public void salvarCurso(List<Curso> curso) {
-        cursos.addAll(curso);
+    public List<Curso> salvarCurso(List<Curso> cursosParaSalvar) {
+        for (Curso curso : cursosParaSalvar) {
+            curso.setId(nextId);
+            cursos.add(curso);
+            nextId++;
+        }
+        return cursosParaSalvar;
     }
 }

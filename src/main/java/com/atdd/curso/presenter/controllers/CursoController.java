@@ -1,5 +1,6 @@
 package com.atdd.curso.presenter.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,12 +16,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.atdd.curso.dominio.entidades.Curso;
 import com.atdd.curso.dominio.repositorios.CursoRepositorio;
+import com.atdd.curso.presenter.dtos.inputs.CursoInputDto;
 import com.atdd.curso.presenter.dtos.outputs.CursoOutputDto;
 import com.atdd.usuario.dominio.entidades.Matricula;
 import com.atdd.usuario.dominio.entidades.Usuario;
 import com.atdd.usuario.dominio.repositorios.UsuarioRepositorio;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -42,6 +47,17 @@ public class CursoController {
         return cursoRepositorio.getCursos().stream().map(CursoOutputDto::new).toList();
     }
 
+    // Leonardo Dimarchi - 200109
+    @PostMapping
+    public CursoOutputDto createCurso(@Valid @RequestBody CursoInputDto cursoCreateDTO) {
+        Curso curso = new Curso(cursoCreateDTO.getName());
+        curso.setAulas(new ArrayList<>());
+
+        Curso cursoSalvo = cursoRepositorio.salvarCurso(curso);
+
+        return new CursoOutputDto(cursoSalvo);
+    }
+
     @GetMapping("/cursoId")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -56,7 +72,7 @@ public class CursoController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/matricular")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public void realizarMatricula(

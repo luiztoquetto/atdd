@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.atdd.curso.dominio.entidades.Curso;
 import com.atdd.curso.infra.repositorios.CursoRepositorioInMemory;
 import com.atdd.curso.presenter.controllers.CursoController;
+import com.atdd.curso.presenter.dtos.outputs.CursoOutputDto;
 import com.atdd.usuario.dominio.entidades.Matricula;
 import com.atdd.usuario.dominio.entidades.Usuario;
 import com.atdd.usuario.infra.repositorios.UsuarioRepositorioInMemory;
@@ -31,6 +34,21 @@ public class CursoControllerTests {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         cursoController = new CursoController(usuarioRepositorio, cursoRepositorio);
+    }
+
+    // Leonardo Dimarchi - 200109
+    @Test
+    void devePuxarTodosOsCursosComDTO() {
+        List<Curso> cursosRetornados = Arrays.asList(
+                new Curso("Curso 1"), new Curso("Curso 2"));
+
+        when(cursoRepositorio.getCursos()).thenReturn(cursosRetornados);
+
+        List<CursoOutputDto> resposta = cursoController.getCursos();
+
+        assertEquals(2, resposta.size());
+        assertEquals("Curso 1", resposta.get(0).getName());
+        assertEquals("Curso 2", resposta.get(1).getName());
     }
 
     // Leonardo Dimarchi - 200109

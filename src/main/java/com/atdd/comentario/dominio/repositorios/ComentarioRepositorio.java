@@ -5,11 +5,11 @@ import java.util.List;
 import com.atdd.comentario.dominio.entidades.Comentario;
 
 public interface ComentarioRepositorio {
-    abstract Comentario getComentarioPorId(long id);
+    Comentario getComentarioPorId(long id);
 
-    abstract List<Comentario> getComentariosPorAulaId(long aulaId);
+    List<Comentario> getComentariosPorAulaId(long aulaId);
 
-    abstract void salvarComentario(Comentario Comentario);
+    Comentario salvarComentario(Comentario Comentario);
 
-    abstract void salvarComentario(List<Comentario> Comentarios);
+    List<Comentario> salvarComentario(List<Comentario> Comentarios);
 }

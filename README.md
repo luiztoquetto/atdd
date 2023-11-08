@@ -32,7 +32,7 @@ Esse projeto irá contemplar:
         - [ ] Laura
         - [ ] Vinicius
     - POST
-        - [ ] Leo
+        - [x] Leo
         - [ ] Luiz
         - [ ] Laura
         - [ ] Vinicius

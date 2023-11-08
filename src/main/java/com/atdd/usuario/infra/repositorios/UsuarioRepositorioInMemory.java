@@ -24,6 +24,8 @@ public class UsuarioRepositorioInMemory implements UsuarioRepositorio {
             new Usuario("Usuario 4", 0, Arrays.asList()),
             new Usuario("Usuario 5", 0, Arrays.asList()));
 
+    private long nextId = 1;
+
     public Usuario getUsuarioPorId(long id) {
         for (Usuario usuario : usuarios) {
             if (usuario.getId() == id) {
@@ -37,11 +39,19 @@ public class UsuarioRepositorioInMemory implements UsuarioRepositorio {
         return usuarios;
     }
 
-    public void salvarUsuario(Usuario usuario) {
+    public Usuario salvarUsuario(Usuario usuario) {
+        usuario.setId(nextId);
         usuarios.add(usuario);
+        nextId++;
+        return usuario;
     }
 
-    public void salvarUsuario(List<Usuario> usuarios) {
-        usuarios.addAll(usuarios);
+    public List<Usuario> salvarUsuario(List<Usuario> usuariosParaSalvar) {
+        for (Usuario usuario : usuariosParaSalvar) {
+            usuario.setId(nextId);
+            usuarios.add(usuario);
+            nextId++;
+        }
+        return usuariosParaSalvar;
     }
 }

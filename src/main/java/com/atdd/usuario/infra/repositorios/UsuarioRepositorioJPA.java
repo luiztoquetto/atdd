@@ -23,11 +23,11 @@ public interface UsuarioRepositorioJPA extends JpaRepository<Usuario, Long>, Usu
         return this.findAll();
     }
 
-    default void salvarUsuario(Usuario usuario) {
-        this.save(usuario);
+    default Usuario salvarUsuario(Usuario usuario) {
+        return this.save(usuario);
     }
 
-    default void salvarUsuario(List<Usuario> usuarios) {
-        this.saveAll(usuarios);
+    default List<Usuario> salvarUsuario(List<Usuario> usuarios) {
+        return this.saveAll(usuarios);
     }
 }

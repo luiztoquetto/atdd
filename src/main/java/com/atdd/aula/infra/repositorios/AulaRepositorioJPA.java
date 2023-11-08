@@ -23,11 +23,11 @@ public interface AulaRepositorioJPA extends JpaRepository<Aula, Long>, AulaRepos
         return this.findAll();
     }
 
-    default void salvarAula(Aula Aula) {
-        this.save(Aula);
+    default Aula salvarAula(Aula Aula) {
+        return this.save(Aula);
     }
 
-    default void salvarAula(List<Aula> Aulas) {
-        this.saveAll(Aulas);
+    default List<Aula> salvarAula(List<Aula> Aulas) {
+        return this.saveAll(Aulas);
     }
 }
