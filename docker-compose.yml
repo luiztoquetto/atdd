@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    environment:
+      POSTGRES_DB: atdd-db
+      POSTGRES_USER: atdd-user
+      POSTGRES_PASSWORD: atdd-password
+    volumes:
+    - db-volume:/var/lib/postgresql/data
+
+  api:
+    # image: facens/atdd-devops-e-qas  <-- Busca a imagem no Docker hub
+    build: . # Utiliza o Dockerfile do projeto
+    environment:
+      DB_HOST: database
+    ports:
+      - "9090:9090"
+volumes:
+  db-volume:
