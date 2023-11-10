@@ -40,7 +40,7 @@ public class ComentarioController {
     @Autowired
     private AulaRepositorio aulaRepositorio;
 
-    // 200359
+    // Luiz Fernando - 200359
     @GetMapping("{id}")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -58,7 +58,7 @@ public class ComentarioController {
         return new ComentarioOutputDto(comentario);
     }
 
-    // 200359
+    // Luiz Fernando - 200359
     @PostMapping
     public ComentarioOutputDto postComentario(
         @Valid @RequestBody ComentarioInputDto comentarioCreateDTO
