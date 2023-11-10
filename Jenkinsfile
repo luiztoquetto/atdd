@@ -50,9 +50,9 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'curl http://localhost:9090'
+            sh 'curl http://localhost:9090/cursos'
           } else {
-            bat 'curl http://localhost:9090'
+            bat 'curl http://localhost:9090/cursos'
           }
         }
       }
