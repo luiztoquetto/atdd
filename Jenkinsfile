@@ -3,28 +3,50 @@ pipeline {
   stages {
     stage("verify tooling") {
       steps {
-        bat '''
-          docker version
-          docker info
-          docker compose version 
-          curl --version
+        if (isUnix()) {
+          sh '''
+            docker version
+            docker info
+            docker compose version 
+            curl --version
           '''
+        } else {
+          bat '''
+            docker version
+            docker info
+            docker compose version 
+            curl --version
+          '''
+        }
       }
     }
     stage('Prune Docker data') {
       steps {
-        bat 'docker system prune -a --volumes -f'
+        if (isUnix()) {
+          sh 'docker system prune -a --volumes -f'
+        } else {
+          bat 'docker system prune -a --volumes -f'
+        }
       }
     }
     stage('Start container') {
       steps {
-        bat 'docker compose up -d --no-color --wait'
-        bat 'docker compose ps'
+        if (isUnix()) {
+          sh 'docker compose up -d --no-color --wait'
+          sh 'docker compose ps'
+        } else {
+          bat 'docker compose up -d --no-color --wait'
+          bat 'docker compose ps'
+        }
       }
     }
     stage('Run tests against the container') {
       steps {
-        bat 'curl http://localhost:9090'
+        if (isUnix()) {
+          sh 'curl http://localhost:9090'
+        } else {
+          bat 'curl http://localhost:9090'
+        }
       }
     }
   }
