@@ -1,54 +1,59 @@
 pipeline {
-  agent any
-  stages {
-    stage("verify tooling") {
-      steps {
-        if (isUnix()) {
-          sh '''
-            docker version
-            docker info
-            docker compose version 
-            curl --version
-          '''
-        } else {
-          bat '''
-            docker version
-            docker info
-            docker compose version 
-            curl --version
-          '''
+    agent any
+    stages {
+        stage("verify tooling") {
+            steps {
+                script {
+                    def cmd = isUnix() ? 'sh' : 'bat'
+                    catchError(buildResult: 'FAILURE') {
+                        echo "Verifying tooling..."
+                        ${cmd} '''
+                            docker version
+                            docker info
+                            docker compose version 
+                            curl --version
+                        '''
+                    }
+                }
+            }
         }
-      }
-    }
-    stage('Prune Docker data') {
-      steps {
-        if (isUnix()) {
-          sh 'docker system prune -a --volumes -f'
-        } else {
-          bat 'docker system prune -a --volumes -f'
+        stage('Prune Docker data') {
+            parallel {
+                stage('Prune') {
+                    steps {
+                        script {
+                            def cmd = isUnix() ? 'sh' : 'bat'
+                            catchError(buildResult: 'FAILURE') {
+                                echo "Pruning Docker data..."
+                                ${cmd} 'docker system prune -a --volumes -f'
+                            }
+                        }
+                    }
+                }
+                stage('Start container') {
+                    steps {
+                        script {
+                            def cmd = isUnix() ? 'sh' : 'bat'
+                            catchError(buildResult: 'FAILURE') {
+                                echo "Starting container..."
+                                ${cmd} 'docker compose up -d --no-color --wait'
+                                ${cmd} 'docker compose ps'
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
-    stage('Start container') {
-      steps {
-        if (isUnix()) {
-          sh 'docker compose up -d --no-color --wait'
-          sh 'docker compose ps'
-        } else {
-          bat 'docker compose up -d --no-color --wait'
-          bat 'docker compose ps'
+        stage('Run tests against the container') {
+            steps {
+                script {
+                    def cmd = isUnix() ? 'sh' : 'bat'
+                    catchError(buildResult: 'FAILURE') {
+                        echo "Running tests..."
+                        ${cmd} 'curl http://localhost:9090'
+                    }
+                }
+            }
         }
-      }
     }
-    stage('Run tests against the container') {
-      steps {
-        if (isUnix()) {
-          sh 'curl http://localhost:9090'
-        } else {
-          bat 'curl http://localhost:9090'
-        }
-      }
-    }
-  }
-
 }
