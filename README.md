@@ -28,12 +28,12 @@ Esse projeto irá contemplar:
 - Cada integrante irá desenvolver um GET, POST e um teste (do GET pelo menos)
     - GET
         - [x] Leo
-        - [ ] Luiz
+        - [x] Luiz
         - [ ] Laura
         - [ ] Vinicius
     - POST
         - [x] Leo
-        - [ ] Luiz
+        - [x] Luiz
         - [ ] Laura
         - [ ] Vinicius
 
