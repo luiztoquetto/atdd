@@ -11,7 +11,7 @@ services:
     - db-volume:/var/lib/postgresql/data
 
   api:
-    image: facens/atdd-devops-e-qas  # Busca a imagem no Docker hub
+    image: leonardofacens/atdd-devops-e-qas  # Busca a imagem no Docker hub
     # build: . # Utiliza o Dockerfile do projeto
     environment:
       DB_HOST: database
