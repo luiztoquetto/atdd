@@ -30,11 +30,20 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'docker logout'
             sh 'docker system prune -a --volumes -f'
           } else {
-            bat 'docker logout'
             bat 'docker system prune -a --volumes -f'
+          }
+        }
+      }
+    }
+    stage('Docker Login') {
+      steps {
+        script {
+          if (isUnix()) {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          } else {
+            bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
           }
         }
       }
@@ -70,17 +79,6 @@ pipeline {
             sh 'docker build -t leonardofacens/atdd-devops-e-qas:latest .'
           } else {
             bat 'docker build -t leonardofacens/atdd-devops-e-qas:latest .'
-          }
-        }
-      }
-    }
-    stage('Docker Login') {
-      steps {
-        script {
-          if (isUnix()) {
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-          } else {
-            bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
           }
         }
       }
