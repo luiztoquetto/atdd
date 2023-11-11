@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage("verify tooling") {
+    stage("Verify tooling") {
       steps {
         script {
           if (isUnix()) {
@@ -46,7 +46,7 @@ pipeline {
         }
       }
     }
-    stage('Run tests against the container') {
+    stage('Run tests against the container (GET /cursos)') {
       steps {
         script {
           if (isUnix()) {
@@ -57,6 +57,41 @@ pipeline {
         }
       }
     }
+    stage('Build Docker image') {
+      steps {
+        if (isUnix()) {
+          sh 'docker build -t leonardofacens/atdd-devops-e-qas:latest .'
+        } else {
+          bat 'docker build -t leonardofacens/atdd-devops-e-qas:latest .'
+        }
+      }
+    }
+    stage('Docker Login') {
+      steps {
+        if (isUnix()) {
+          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        } else {
+          bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        }
+      }
+    }
+    stage('Docker Push') {
+      steps {
+        if (isUnix()) {
+          sh 'docker push leonardofacens/atdd-devops-e-qas:latest'
+        } else {
+          bat 'docker push leonardofacens/atdd-devops-e-qas:latest'
+        }
+      }
+    }
   }
-
+  post {
+    always {
+      if (isUnix()) {
+        sh 'docker logout'
+      } else {
+        bat 'docker logout'
+      }
+    }
+  }
 }
