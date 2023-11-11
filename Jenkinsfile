@@ -9,7 +9,7 @@ pipeline {
         script {
           if (isUnix()) {
             sh '''
-              sh date
+              date
               docker version
               docker info
               docker compose version 
