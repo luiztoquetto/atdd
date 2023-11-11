@@ -30,8 +30,10 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
+            sh 'docker logout'
             sh 'docker system prune -a --volumes -f'
           } else {
+            bat 'docker logout'
             bat 'docker system prune -a --volumes -f'
           }
         }
