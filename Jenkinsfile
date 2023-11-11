@@ -37,17 +37,6 @@ pipeline {
         }
       }
     }
-    stage('Docker Login') {
-      steps {
-        script {
-          if (isUnix()) {
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-          } else {
-            bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-          }
-        }
-      }
-    }
     stage('Start container') {
       steps {
         script {
@@ -76,9 +65,20 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'docker build -t leonardofacens/atdd-devops-e-qas:latest .'
+            sh 'docker build -t leonardofacens/atdd-devops-e-qas .'
           } else {
-            bat 'docker build -t leonardofacens/atdd-devops-e-qas:latest .'
+            bat 'docker build -t leonardofacens/atdd-devops-e-qas .'
+          }
+        }
+      }
+    }
+    stage('Docker Login') {
+      steps {
+        script {
+          if (isUnix()) {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          } else {
+            bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
           }
         }
       }
@@ -87,9 +87,9 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'docker push leonardofacens/atdd-devops-e-qas:latest'
+            sh 'docker push leonardofacens/atdd-devops-e-qas'
           } else {
-            bat 'docker push leonardofacens/atdd-devops-e-qas:latest'
+            bat 'docker push leonardofacens/atdd-devops-e-qas'
           }
         }
       }
