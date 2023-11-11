@@ -96,10 +96,12 @@ pipeline {
   }
   post {
     always {
-      if (isUnix()) {
-        sh 'docker logout'
-      } else {
-        bat 'docker logout'
+      script {
+        if (isUnix()) {
+          sh 'docker logout'
+        } else {
+          bat 'docker logout'
+        }
       }
     }
   }
