@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-leonardofacens	')
+  }
   stages {
     stage("Verify tooling") {
       steps {
