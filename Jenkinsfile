@@ -10,6 +10,8 @@ pipeline {
           if (isUnix()) {
             sh '''
               date
+              timedatectl
+              timedatectl set-ntp true
               docker version
               docker info
               docker compose version 
