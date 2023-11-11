@@ -3,6 +3,10 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-leonardofacens	')
   }
+  tools { 
+    maven 'Maven 3.8.3' 
+    jdk 'jdk17' 
+  }
   stages {
     stage("Verify tooling") {
       steps {
@@ -37,27 +41,19 @@ pipeline {
         }
       }
     }
-    stage('Start container') {
+    stage('Test and Build') {
       steps {
         script {
           if (isUnix()) {
-            sh 'docker compose up -d --no-color --wait'
-            sh 'docker compose ps'
+            sh 'mvn clean package'     
           } else {
-            bat 'docker compose up -d --no-color --wait'
-            bat 'docker compose ps'
+            bat 'mvn clean package' 
           }
         }
       }
-    }
-    stage('Run tests against the container (GET /cursos)') {
-      steps {
-        script {
-          if (isUnix()) {
-            sh 'curl http://localhost:9090/cursos'
-          } else {
-            bat 'curl http://localhost:9090/cursos'
-          }
+      post {
+        success {
+          junit 'target/surefire-reports/**/*.xml' 
         }
       }
     }
