@@ -3,10 +3,6 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-leonardofacens	')
   }
-  tools { 
-    maven 'Maven 3.8.3' 
-    jdk 'jdk17' 
-  }
   stages {
     stage("Verify tooling") {
       steps {
