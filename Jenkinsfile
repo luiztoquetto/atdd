@@ -42,17 +42,6 @@ pipeline {
         }
       }
     }
-    stage('Prune Docker data') {
-      steps {
-        script {
-          if (isUnix()) {
-            sh 'docker system prune -a --volumes -f'
-          } else {
-            bat 'docker system prune -a --volumes -f'
-          }
-        }
-      }
-    }
     stage('Build Docker image') {
       steps {
         script {
