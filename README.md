@@ -29,12 +29,12 @@ Esse projeto irá contemplar:
     - GET
         - [x] Leo
         - [x] Luiz
-        - [ ] Laura
+        - [x] Laura
         - [ ] Vinicius
     - POST
         - [x] Leo
         - [x] Luiz
-        - [ ] Laura
+        - [x] Laura
         - [ ] Vinicius
 
 - Ambiente Dev 
