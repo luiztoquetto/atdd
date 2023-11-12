@@ -20,6 +20,9 @@ import com.atdd.curso.presenter.dtos.outputs.CursoOutputDto;
 import com.atdd.usuario.dominio.entidades.Matricula;
 import com.atdd.usuario.dominio.entidades.Usuario;
 import com.atdd.usuario.infra.repositorios.UsuarioRepositorioInMemory;
+import com.atdd.usuario.presenter.controllers.UsuarioController;
+import com.atdd.usuario.presenter.dtos.outputs.UsuarioOutputDto;
+
 
 public class CursoControllerTests {
     @Mock
@@ -29,13 +32,32 @@ public class CursoControllerTests {
     private CursoRepositorioInMemory cursoRepositorio;
 
     private CursoController cursoController;
+    
+    private UsuarioController usuarioController;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         cursoController = new CursoController(usuarioRepositorio, cursoRepositorio);
     }
+    // Laura Cecilia - 200343
+    @Test
+    void devePuxarTodosOsUsuariosComDTO() {
+        List<Usuario> usuariosRetornados = Arrays.asList(
+        	new Usuario(
+        			"Usuario 1",1,Arrays.asList()),
+        	new Usuario(
+                    "Usuario 2",2,Arrays.asList()));
 
+        when(usuarioRepositorio.getUsuarios()).thenReturn(usuariosRetornados);
+
+        List<UsuarioOutputDto> resposta = usuarioController.getUsuarios();
+
+        assertEquals(2, resposta.size());
+        assertEquals("Usuario 1", resposta.get(0).getName());
+        assertEquals("Usuario 2", resposta.get(1).getName());
+    }
+    
     // Leonardo Dimarchi - 200109
     @Test
     void devePuxarTodosOsCursosComDTO() {
