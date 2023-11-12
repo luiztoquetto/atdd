@@ -38,4 +38,5 @@ public class Matricula {
     public Double getMedia() {
         return (notaA + notaB + notaC) / 3;
     }
+    
 }
