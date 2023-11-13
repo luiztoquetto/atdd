@@ -1,6 +1,7 @@
 package com.atdd.aula.presenter.dtos.inputs;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,4 +10,7 @@ import lombok.Setter;
 public class AulaInputDto {
     @NotBlank(message = "É necessário enviar um nome para a aula")
     private String name;
+
+    @NotNull(message = "É necessário essa aula à um curso")
+    private long cursoId;
 }

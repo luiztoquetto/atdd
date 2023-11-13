@@ -1,12 +1,26 @@
 package com.atdd.aula.presenter.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.atdd.aula.dominio.entidades.Aula;
 import com.atdd.aula.dominio.repositorios.AulaRepositorio;
+import com.atdd.aula.presenter.dtos.inputs.AulaInputDto;
+import com.atdd.aula.presenter.dtos.outputs.AulaOutputDto;
+import com.atdd.curso.dominio.entidades.Curso;
+import com.atdd.curso.dominio.repositorios.CursoRepositorio;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -29,24 +43,11 @@ public class AulaController {
         return aulaRepositorio.getAulas().stream().map(AulaOutputDto::new).toList();
     }
 
-    @GetMapping("/aulaId")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public void getAula(
-        @RequestParam(value = "aulaId", required = true) int aulaId
-        @RequestParam(value = "aula", required = true) Aula aula) {
-            Aula aulaNaoEncontrada = aula.getAula(aulaId);
-
-            if (aulaNaoEncontrada == null) {
-                throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN, "Essa aula não existe.");
-            }
-        }
-
-    // Vinícius Martins Granso - 200109
+    // Vinícius Martins Granso - 224072
     @PostMapping
-    public AulaOutputDto createAula(@Valid @RequestBody AulaInputDto AulaCreateDTO, CursoInputDto CursoInputDto) {
-        Aula aula = new Aula(AulaCreateDTO.getName(), CursoInputDto.);
+    public AulaOutputDto createAula(@Valid @RequestBody AulaInputDto AulaCreateDTO) {
+        Curso curso = cursoRepositorio.getCursoPorId(AulaCreateDTO.getCursoId());
+        Aula aula = new Aula(AulaCreateDTO.getName(), curso);
 
         Aula aulaSalva = aulaRepositorio.salvarAula(aula);
 
