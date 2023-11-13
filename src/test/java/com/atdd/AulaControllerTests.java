@@ -19,6 +19,7 @@ import com.atdd.curso.dominio.repositorios.CursoRepositorio;
 import com.atdd.usuario.dominio.repositorios.UsuarioRepositorio;
 
 public class AulaControllerTests {
+    // Vinícius Martins Granso - 224072
     @Mock
     private UsuarioRepositorio usuarioRepositorio;
 
