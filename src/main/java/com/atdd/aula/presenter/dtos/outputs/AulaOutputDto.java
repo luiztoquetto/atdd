@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class AulaOutputDto {
-    public AulaOutputDto(Aula curso) {
+    public AulaOutputDto(Aula aula) {
         id = aula.getId();
         name = aula.getName();
     }
