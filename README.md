@@ -30,12 +30,12 @@ Esse projeto irá contemplar:
         - [x] Leo
         - [x] Luiz
         - [x] Laura
-        - [ ] Vinicius
+        - [x] Vinicius
     - POST
         - [x] Leo
         - [x] Luiz
         - [x] Laura
-        - [ ] Vinicius
+        - [x] Vinicius
 
 - Ambiente Dev 
     - Pipeline rodando os testes (+ relatório Jacoco) e gerando imagem docker
