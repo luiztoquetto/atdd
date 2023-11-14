@@ -40,6 +40,7 @@ public class AulaControllerTests {
         );
     }
 
+    // Vinícius Martins Granso - 224072
     @Test
     void deveRetornarSeExistemAulasDTO() {
         Curso curso = new Curso("Curso 1");
