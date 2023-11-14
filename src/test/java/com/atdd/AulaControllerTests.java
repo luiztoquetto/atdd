@@ -2,7 +2,7 @@ package com.atdd;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +28,7 @@ public class AulaControllerTests {
 
     private AulaController aulaController;
 
+    @Mock
     private AulaRepositorio aulaRepositorio;
 
     @BeforeEach
@@ -41,24 +42,17 @@ public class AulaControllerTests {
 
     @Test
     void deveRetornarSeExistemAulasDTO() {
-        Curso curso = new Curso();
-        curso.setName("Curso 1");
-        curso.setId(1);
+        Curso curso = new Curso("Curso 1");
+        List<Aula> listaDeAulas = Arrays.asList(
+            new Aula("Aula 1", curso), new Aula("Aula 2", curso));
 
-        ArrayList<Aula> minhaLista = new ArrayList<Aula>();
-
-        Aula aula = new Aula();
-        aula.setCurso(curso);
-        aula.setId(1);
-        aula.setName("Aula 1");
-        minhaLista.add(aula);
-
-
-        when(aulaRepositorio.getAulas()).thenReturn(minhaLista);
+        when(aulaRepositorio.getAulas()).thenReturn(listaDeAulas);
 
         List<AulaOutputDto> saida = aulaController.getAulas();
 
-        assertEquals(saida.size(), 0);
+        assertEquals(2, saida.size());
+        assertEquals("Aula 1", saida.get(0).getName());
+        assertEquals("Aula 2", saida.get(1).getName());
     }
 
 }
