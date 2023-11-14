@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.atdd.aula.dominio.entidades.Aula;
 import com.atdd.aula.dominio.repositorios.AulaRepositorio;
@@ -47,6 +48,12 @@ public class AulaController {
     @PostMapping
     public AulaOutputDto createAula(@Valid @RequestBody AulaInputDto AulaCreateDTO) {
         Curso curso = cursoRepositorio.getCursoPorId(AulaCreateDTO.getCursoId());
+        if (curso == null)
+            throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Aula não foi criada pois não existe curso vinculado à aula."
+            );
+
         Aula aula = new Aula(AulaCreateDTO.getName(), curso);
 
         Aula aulaSalva = aulaRepositorio.salvarAula(aula);
