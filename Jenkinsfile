@@ -39,8 +39,8 @@ pipeline {
         step([ 
           $class: 'JacocoPublisher',
           changeBuildStatus: true,
-          minimumInstructionCoverage: '80',
-          maximumInstructionCoverage: '90'
+          minimumMethodCoverage: '80',
+          maximumMethodCoverage: '90'
         ])
         script {
           if (currentBuild.result == 'FAILURE') {
