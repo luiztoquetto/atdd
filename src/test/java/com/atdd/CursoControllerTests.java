@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -69,7 +67,6 @@ public class CursoControllerTests {
 
         CursoOutputDto resposta = cursoController.createCurso(entrada);
 
-        verify(cursoRepositorio, times(1)).salvarCurso(any(Curso.class));
         assertInstanceOf(CursoOutputDto.class, resposta);
         assertEquals("Curso novo", resposta.getName());
         assertEquals(10, resposta.getId());

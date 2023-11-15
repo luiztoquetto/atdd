@@ -1,7 +1,9 @@
 package com.atdd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -12,11 +14,14 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.atdd.aula.dominio.entidades.Aula;
 import com.atdd.aula.dominio.repositorios.AulaRepositorio;
 import com.atdd.comentario.dominio.entidades.Comentario;
 import com.atdd.comentario.dominio.repositorios.ComentarioRepositorio;
 import com.atdd.comentario.presenter.controllers.ComentarioController;
+import com.atdd.comentario.presenter.dtos.inputs.ComentarioInputDto;
 import com.atdd.comentario.presenter.dtos.outputs.ComentarioOutputDto;
+import com.atdd.usuario.dominio.entidades.Usuario;
 import com.atdd.usuario.dominio.repositorios.UsuarioRepositorio;
 
 public class ComentarioControllerTests {
@@ -36,10 +41,9 @@ public class ComentarioControllerTests {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         comentarioController = new ComentarioController(
-            comentarioRepositorio,
-            usuarioRepositorio, 
-            aulaRepositorio
-        );
+                comentarioRepositorio,
+                usuarioRepositorio,
+                aulaRepositorio);
     }
 
     // Luiz Fernando - 200359
@@ -71,4 +75,33 @@ public class ComentarioControllerTests {
         assertEquals(exception.getStatusCode(), HttpStatus.NOT_FOUND);
     }
 
+    // Luiz Fernando - 200359
+    @Test
+    void deveCriarUmComentarioERetornarDTO() {
+        ComentarioInputDto entrada = new ComentarioInputDto();
+        entrada.setUsuarioId(1L);
+        entrada.setAulaId(1L);
+        entrada.setMensagem("Mensagem mockada");
+
+        Usuario usuario = new Usuario();
+        usuario.setId(1L);
+
+        Aula aula = new Aula();
+        aula.setId(1L);
+
+        when(usuarioRepositorio.getUsuarioPorId(anyLong())).thenReturn(usuario);
+        when(aulaRepositorio.getAulaPorId(anyLong())).thenReturn(aula);
+
+        Comentario comentarioSalvo = new Comentario();
+        comentarioSalvo.setId(10);
+        comentarioSalvo.setMensagem("Mensagem mockada");
+
+        when(comentarioRepositorio.salvarComentario(any(Comentario.class))).thenReturn(comentarioSalvo);
+
+        ComentarioOutputDto resposta = comentarioController.postComentario(entrada);
+
+        assertInstanceOf(ComentarioOutputDto.class, resposta);
+        assertEquals("Mensagem mockada", resposta.getMensagem());
+        assertEquals(10, resposta.getId());
+    }
 }
