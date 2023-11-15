@@ -35,17 +35,13 @@ pipeline {
             bat 'mvn clean package install' 
           }
         }
-      }
-      post {
-        success {
-          junit 'target/surefire-reports/**/*.xml' 
-          step([ 
-            $class: 'JacocoPublisher',
-            changeBuildStatus: true,
-            minimumInstructionCoverage: '80',
-            maximumInstructionCoverage: '90'
-          ])
-        }
+        junit 'target/surefire-reports/**/*.xml' 
+        step([ 
+          $class: 'JacocoPublisher',
+          changeBuildStatus: true,
+          minimumInstructionCoverage: '80',
+          maximumInstructionCoverage: '90'
+        ])
       }
     }
     stage('Build Docker image') {
