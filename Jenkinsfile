@@ -41,6 +41,7 @@ pipeline {
           junit 'target/surefire-reports/**/*.xml' 
           step([ 
             $class: 'JacocoPublisher',
+            changeBuildStatus: true,
             minInstruction: '90'
           ])
         }
