@@ -9,6 +9,7 @@ public class UsuarioOutputDto {
 	public UsuarioOutputDto(Usuario usuario) {
         id = usuario.getId();
         name = usuario.getName();
+        quantidadeDeMatriculasDisponiveis = usuario.getQuantidadeDeMatriculasDisponiveis();
     }
 
     private Long id;
