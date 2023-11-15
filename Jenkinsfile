@@ -42,6 +42,11 @@ pipeline {
           minimumInstructionCoverage: '80',
           maximumInstructionCoverage: '90'
         ])
+        script {
+          if (currentBuild.result == 'FAILURE') {
+              error("A cobertura de testes está baixa!")
+          }
+        }
       }
     }
     stage('Build Docker image') {
