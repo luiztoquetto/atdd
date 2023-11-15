@@ -35,12 +35,27 @@ public class AulaControllerTests {
         );
     }
 
+    // Luiz Fernando - 200359
+    @Test
+    void deveRetornarVazioSeNaoTerAulasCadastradas() {
+        List<Aula> listaVazia = Arrays.asList();
+
+        when(aulaRepositorio.getAulas()).thenReturn(listaVazia);
+
+        List<AulaOutputDto> resposta = aulaController.getAulas();
+
+        assertEquals(0, resposta.size());
+    }
+
     // Vinícius Martins Granso - 224072
     @Test
     void deveRetornarSeExistemAulasDTO() {
         Curso curso = new Curso("Curso 1");
+
         List<Aula> listaDeAulas = Arrays.asList(
-            new Aula("Aula 1", curso), new Aula("Aula 2", curso));
+            new Aula("Aula 1", curso), 
+            new Aula("Aula 2", curso)
+        );
 
         when(aulaRepositorio.getAulas()).thenReturn(listaDeAulas);
 

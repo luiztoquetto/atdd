@@ -54,6 +54,18 @@ public class CursoControllerTests {
         assertEquals("Curso 2", resposta.get(1).getName());
     }
 
+    // Luiz Fernando - 200359
+    @Test
+    void deveRetornarVazioSeNaoTerCursosCadastrados() {
+        List<Curso> listaVazia = Arrays.asList();
+
+        when(cursoRepositorio.getCursos()).thenReturn(listaVazia);
+
+        List<CursoOutputDto> resposta = cursoController.getCursos();
+
+        assertEquals(0, resposta.size());
+    }
+
     // Leonardo Dimarchi - 200109
     @Test
     void deveCriarUmCursoERetornarDTO() {

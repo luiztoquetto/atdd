@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.atdd.aula.dominio.entidades.Aula;
+import com.atdd.aula.presenter.dtos.outputs.AulaOutputDto;
 import com.atdd.usuario.dominio.entidades.Usuario;
 import com.atdd.usuario.infra.repositorios.UsuarioRepositorioInMemory;
 import com.atdd.usuario.presenter.controllers.UsuarioController;
@@ -26,6 +28,18 @@ public class UsuarioControllerTests {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         usuarioController = new UsuarioController(usuarioRepositorio);
+    }
+
+    // Luiz Fernando - 200359
+    @Test
+    void deveRetornarVazioSeNaoTerUsuariosCadastrados() {
+        List<Usuario> listaVazia = Arrays.asList();
+
+        when(usuarioRepositorio.getUsuarios()).thenReturn(listaVazia);
+
+        List<UsuarioOutputDto> resposta = usuarioController.getUsuarios();
+
+        assertEquals(0, resposta.size());
     }
 
     // Laura Cecilia - 200343
@@ -45,4 +59,5 @@ public class UsuarioControllerTests {
         assertEquals("Usuario 1", resposta.get(0).getName());
         assertEquals("Usuario 2", resposta.get(1).getName());
     }
+
 }

@@ -77,31 +77,75 @@ public class ComentarioControllerTests {
 
     // Luiz Fernando - 200359
     @Test
-    void deveCriarUmComentarioERetornarDTO() {
+    void deveRetornarErroCasoNaoExistaAula() {
         ComentarioInputDto entrada = new ComentarioInputDto();
+
+        entrada.setMensagem("Teste mensagem");
+        entrada.setAulaId(1L);
+        entrada.setUsuarioId(1L);
+
+        when(aulaRepositorio.getAulaPorId(anyLong())).thenReturn(null);
+
+        ResponseStatusException exception = assertThrows(
+            ResponseStatusException.class,
+            () -> comentarioController.postComentario(entrada)
+        );
+
+        assertEquals(exception.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    // Luiz Fernando - 200359
+    @Test
+    void deveRetornarErroCasoNaoExistaUsuario() {
+        ComentarioInputDto entrada = new ComentarioInputDto();
+
+        entrada.setMensagem("Teste mensagem");
+        entrada.setAulaId(1L);
+        entrada.setUsuarioId(1L);
+
+        when(usuarioRepositorio.getUsuarioPorId(anyLong())).thenReturn(null);
+
+        ResponseStatusException exception = assertThrows(
+            ResponseStatusException.class,
+            () -> comentarioController.postComentario(entrada)
+        );
+
+        assertEquals(exception.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    // Leonardo Dimarchi - 200109
+    @Test
+    void deveCriarERetornarComentarioDTO() {
+        ComentarioInputDto entrada = new ComentarioInputDto();
+
         entrada.setUsuarioId(1L);
         entrada.setAulaId(1L);
-        entrada.setMensagem("Mensagem mockada");
+        entrada.setMensagem("Teste mensagem");
 
         Usuario usuario = new Usuario();
+
         usuario.setId(1L);
 
         Aula aula = new Aula();
+
         aula.setId(1L);
 
         when(usuarioRepositorio.getUsuarioPorId(anyLong())).thenReturn(usuario);
         when(aulaRepositorio.getAulaPorId(anyLong())).thenReturn(aula);
 
         Comentario comentarioSalvo = new Comentario();
+
         comentarioSalvo.setId(10);
-        comentarioSalvo.setMensagem("Mensagem mockada");
+        comentarioSalvo.setMensagem("Teste mensagem");
 
         when(comentarioRepositorio.salvarComentario(any(Comentario.class))).thenReturn(comentarioSalvo);
 
         ComentarioOutputDto resposta = comentarioController.postComentario(entrada);
 
         assertInstanceOf(ComentarioOutputDto.class, resposta);
-        assertEquals("Mensagem mockada", resposta.getMensagem());
+
+        assertEquals("Teste mensagem", resposta.getMensagem());
         assertEquals(10, resposta.getId());
     }
+
 }
