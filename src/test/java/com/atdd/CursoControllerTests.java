@@ -1,7 +1,11 @@
 package com.atdd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -16,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.atdd.curso.dominio.entidades.Curso;
 import com.atdd.curso.infra.repositorios.CursoRepositorioInMemory;
 import com.atdd.curso.presenter.controllers.CursoController;
+import com.atdd.curso.presenter.dtos.inputs.CursoInputDto;
 import com.atdd.curso.presenter.dtos.outputs.CursoOutputDto;
 import com.atdd.usuario.dominio.entidades.Matricula;
 import com.atdd.usuario.dominio.entidades.Usuario;
@@ -49,6 +54,25 @@ public class CursoControllerTests {
         assertEquals(2, resposta.size());
         assertEquals("Curso 1", resposta.get(0).getName());
         assertEquals("Curso 2", resposta.get(1).getName());
+    }
+
+    // Leonardo Dimarchi - 200109
+    @Test
+    void deveCriarUmCursoERetornarDTO() {
+        CursoInputDto entrada = new CursoInputDto();
+        entrada.setName("Curso novo");
+
+        Curso cursoSalvo = new Curso("Curso novo");
+        cursoSalvo.setId(10);
+
+        when(cursoRepositorio.salvarCurso(any(Curso.class))).thenReturn(cursoSalvo);
+
+        CursoOutputDto resposta = cursoController.createCurso(entrada);
+
+        verify(cursoRepositorio, times(1)).salvarCurso(any(Curso.class));
+        assertInstanceOf(CursoOutputDto.class, resposta);
+        assertEquals("Curso novo", resposta.getName());
+        assertEquals(10, resposta.getId());
     }
 
     // Leonardo Dimarchi - 200109
