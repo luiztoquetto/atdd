@@ -42,7 +42,7 @@ pipeline {
           step([ 
             $class: 'JacocoPublisher',
             changeBuildStatus: true,
-            minInstructionCoverage: '90'
+            minimumInstructionCoverage: '90'
           ])
         }
       }
