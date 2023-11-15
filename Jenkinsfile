@@ -43,7 +43,7 @@ pipeline {
               execPattern: '**/**.exec',
               classPattern: '**/classes',
               sourcePattern: '**/src/main/java',
-              inclusionPattern: '**/*.java,**/*.groovy,**/*.kt,**/*.kts'
+              inclusionPattern: '**/*.java,**/*.groovy,**/*.kt,**/*.kts',
               minimumInstructionCoverage: '90%'
           )
         }
