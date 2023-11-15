@@ -41,8 +41,9 @@ pipeline {
           junit 'target/surefire-reports/**/*.xml' 
           jacoco(
                 execPattern: '**/build/jacoco/*.exec',
-                classPattern: '**/build/classes/java/main',
-                sourcePattern: '**/src/main'
+                classPattern: '**/coverage/**',
+                sourcePattern: '**/coverage/**',
+                inclusionPattern: '**/*.class'
             )
         }
       }
