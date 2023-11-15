@@ -41,7 +41,7 @@ pipeline {
           junit 'target/surefire-reports/**/*.xml' 
           step([ 
             $class: 'JacocoPublisher',
-            minimumCoverage: 90
+            minimumInstructionCoverage: '90%'
           ])
         }
       }
