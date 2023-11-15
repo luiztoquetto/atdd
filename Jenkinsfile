@@ -30,9 +30,9 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'mvn clean package'     
+            sh 'mvn clean package install'     
           } else {
-            bat 'mvn clean package' 
+            bat 'mvn clean package install' 
           }
         }
       }
