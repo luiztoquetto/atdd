@@ -39,14 +39,10 @@ pipeline {
       post {
         success {
           junit 'target/surefire-reports/**/*.xml' 
-          step( [ $class: 'JacocoPublisher' ] )
-          // jacoco(
-          //     execPattern: '**/**.exec',
-          //     classPattern: '**/classes',
-          //     sourcePattern: '**/src/main/java',
-          //     inclusionPattern: '**/*.java,**/*.groovy,**/*.kt,**/*.kts'
-          //     // minimumInstructionCoverage: '90%'
-          // )
+          step([ 
+            $class: 'JacocoPublisher',
+            minimumCoverage: 90
+          ])
         }
       }
     }
