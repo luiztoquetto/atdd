@@ -39,8 +39,8 @@ pipeline {
         step([ 
           $class: 'JacocoPublisher',
           changeBuildStatus: true,
-          minimumMethodCoverage: '80',
-          maximumMethodCoverage: '90',
+          minimumInstructionCoverage: '80',
+          maximumInstructionCoverage: '90',
           sourcePattern: '**/src',
           inclusionPattern: '**/*.class',
           exclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*',
