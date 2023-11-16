@@ -41,6 +41,8 @@ pipeline {
           changeBuildStatus: true,
           minimumMethodCoverage: '80',
           maximumMethodCoverage: '90',
+          sourcePattern: '**/src',
+          inclusionPattern: '**/*.class',
           sourceExclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*'
         ])
         script {
