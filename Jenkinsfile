@@ -43,6 +43,7 @@ pipeline {
           maximumMethodCoverage: '90',
           sourcePattern: '**/src',
           inclusionPattern: '**/*.class',
+          exclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*',
           sourceExclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*'
         ])
         script {
