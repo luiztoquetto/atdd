@@ -89,8 +89,8 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/infra/repositorios/*</exclude>
-						<exclude>**/presenter/dtos/*</exclude>
+						<exclude>**/infra/repositorios/**/*</exclude>
+						<exclude>**/presenter/dtos/**/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
