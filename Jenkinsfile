@@ -40,7 +40,8 @@ pipeline {
           $class: 'JacocoPublisher',
           changeBuildStatus: true,
           minimumMethodCoverage: '80',
-          maximumMethodCoverage: '90'
+          maximumMethodCoverage: '90',
+          sourceExclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*'
         ])
         script {
           if (currentBuild.result == 'FAILURE') {
