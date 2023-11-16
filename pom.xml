@@ -89,8 +89,8 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/repositorios/*.class</exclude>
-						<exclude>**/presenter/dtos/*.class</exclude>
+						<exclude>com/atdd/**/repositorios/*</exclude>
+						<exclude>com/atdd/**/presenter/dtos/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
