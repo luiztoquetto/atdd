@@ -87,6 +87,12 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/repositorios/*.class</exclude>
+						<exclude>**/presenter/dtos/*.class</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
