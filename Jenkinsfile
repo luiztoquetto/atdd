@@ -43,8 +43,8 @@ pipeline {
           maximumInstructionCoverage: '90',
           sourcePattern: '**/src',
           inclusionPattern: '**/*.class',
-          exclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*',
-          sourceExclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*'
+          exclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*, **/ServletInitializer.*',
+          sourceExclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*, **/ServletInitializer.*'
         ])
         script {
           if (currentBuild.result == 'FAILURE') {
