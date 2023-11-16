@@ -91,6 +91,7 @@
 					<excludes>
 						<exclude>**/infra/repositorios/**/*</exclude>
 						<exclude>**/presenter/dtos/**/*</exclude>
+						<exclude>**/AtddApplication.*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
