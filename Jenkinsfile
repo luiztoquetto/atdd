@@ -90,9 +90,9 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
+            sh 'docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
           } else {
-            bat 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
+            bat 'docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
           }
         }
       }
@@ -101,10 +101,10 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'docker compose up -d --no-color --wait'
+            sh 'AMBIENTE=homolog docker compose up -d --no-color --wait'
             sh 'docker compose ps'
           } else {
-            bat 'docker compose up -d --no-color --wait'
+            bat 'AMBIENTE=homolog docker compose up -d --no-color --wait'
             bat 'docker compose ps'
           }
         }
