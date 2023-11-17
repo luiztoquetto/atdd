@@ -99,7 +99,6 @@ pipeline {
     }
     stage('Staging - Run') {
       steps {
-        sleep(time:10,unit:"SECONDS")
         script {
           if (isUnix()) {
             sh """
@@ -116,6 +115,7 @@ pipeline {
     }
     stage('Staging - Get Cursos') {
       steps {
+        sleep(time:10,unit:"SECONDS")
         script {
           if (isUnix()) {
             sh 'curl http://localhost:9090/cursos'
