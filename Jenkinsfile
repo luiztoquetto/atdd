@@ -97,24 +97,25 @@ pipeline {
     }
     stage('Staging - Run') {
       steps {
-        if (isUnix()) {
-          sh 'docker compose up -d --no-color --wait'
-        } else {
-          bat 'docker compose up -d --no-color --wait'
-        }
-        if (isUnix()) {
-          bat 'docker compose ps'
-        } else {
-          bat 'docker compose ps'
+        script {
+          if (isUnix()) {
+            sh 'docker compose up -d --no-color --wait'
+            sh 'docker compose ps'
+          } else {
+            bat 'docker compose up -d --no-color --wait'
+            bat 'docker compose ps'
+          }
         }
       }
     }
     stage('Staging - Get Cursos') {
       steps {
-        if (isUnix()) {
-          sh 'curl http://localhost:9090/cursos'
-        } else {
-          bat 'curl http://localhost:9090/cursos'
+        script {
+          if (isUnix()) {
+            sh 'curl http://localhost:9090/cursos'
+          } else {
+            bat 'curl http://localhost:9090/cursos'
+          }
         }
       }
     }
