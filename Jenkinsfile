@@ -75,17 +75,6 @@ pipeline {
         }
       }
     }
-    stage('Docker Push') {
-      steps {
-        script {
-          if (isUnix()) {
-            sh 'docker push leonardofacens/atdd-devops-e-qas:latest'
-          } else {
-            bat 'docker push leonardofacens/atdd-devops-e-qas:latest'
-          }
-        }
-      }
-    }
     stage('Staging - Prune Docker volume') {
       steps {
         script {
