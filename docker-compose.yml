@@ -10,7 +10,8 @@ services:
       POSTGRES_PASSWORD: atdd-password
     volumes:
     - db-volume:/var/lib/postgresql/data
-
+    networks:
+      - standard
 
   api:
     image: leonardofacens/atdd-devops-e-qas  # Busca a imagem no Docker hub
@@ -25,6 +26,12 @@ services:
       SPRING_DATASOURCE_PASSWORD: atdd-password
     ports:
       - "9090:9090"
+    networks:
+      - standard
+
+networks:
+  standard:
+    external: true
 
 volumes:
   db-volume:

@@ -75,6 +75,17 @@ pipeline {
         }
       }
     }
+    stage('Docker Push') {
+      steps {
+        script {
+          if (isUnix()) {
+            sh 'docker push leonardofacens/atdd-devops-e-qas:latest'
+          } else {
+            bat 'docker push leonardofacens/atdd-devops-e-qas:latest'
+          }
+        }
+      }
+    }
     stage('Staging - Prune Docker volume') {
       steps {
         script {
@@ -106,7 +117,7 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'curl http://0.0.0.0:9090/cursos'
+            sh 'curl http://localhost:9090/cursos'
           } else {
             // Comando para windows
           }
