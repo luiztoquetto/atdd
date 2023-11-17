@@ -102,7 +102,8 @@ pipeline {
         script {
           if (isUnix()) {
             sh """
-              AMBIENTE=homolog docker compose up -d --no-color --wait
+              export AMBIENTE=homolog 
+              docker compose up -d --no-color --wait
               docker compose ps
             """
           } else {
