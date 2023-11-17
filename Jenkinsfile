@@ -88,10 +88,12 @@ pipeline {
     }
     stage('Staging - Prune Docker volume') {
       steps {
-        if (isUnix()) {
-          sh 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
-        } else {
-          bat 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
+        script {
+          if (isUnix()) {
+            sh 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
+          } else {
+            bat 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
+          }
         }
       }
     }
