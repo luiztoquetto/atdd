@@ -86,6 +86,38 @@ pipeline {
         }
       }
     }
+    stage('Staging - Prune Docker volume') {
+      steps {
+        if (isUnix()) {
+          sh 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
+        } else {
+          bat 'AMBIENTE=homolog docker volume prune --filter "label=com.docker.compose.project=atdd" -f'
+        }
+      }
+    }
+    stage('Staging - Run') {
+      steps {
+        if (isUnix()) {
+          sh 'docker compose up -d --no-color --wait'
+        } else {
+          bat 'docker compose up -d --no-color --wait'
+        }
+        if (isUnix()) {
+          bat 'docker compose ps'
+        } else {
+          bat 'docker compose ps'
+        }
+      }
+    }
+    stage('Staging - Get Cursos') {
+      steps {
+        if (isUnix()) {
+          sh 'curl http://localhost:9090/cursos'
+        } else {
+          bat 'curl http://localhost:9090/cursos'
+        }
+      }
+    }
   }
   post {
     always {
