@@ -46,9 +46,9 @@ public class AtddApplication {
 	@Bean
 	public ApplicationListener<ApplicationReadyEvent> initializeDatabase() {
 		return event -> {
-			String databaseDriver = environment.getProperty("spring.datasource.driverClassName");
+			List<Usuario> usuariosExistentes = usuarioRepositorio.getUsuarios();
 
-			if (!databaseDriver.equals("org.h2.Driver")) {
+			if (usuariosExistentes.size() > 0) {
 				return;
 			}
 
