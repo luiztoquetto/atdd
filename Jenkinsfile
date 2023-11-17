@@ -104,11 +104,11 @@ pipeline {
     }
     stage('Staging - Get Cursos') {
       steps {
-        script {
+        timeout(time: 3, unit: 'SECONDS') {
           if (isUnix()) {
             sh 'curl http://localhost:9090/cursos'
           } else {
-            bat 'curl http://localhost:9090/cursos'
+            // Comando para windows
           }
         }
       }
