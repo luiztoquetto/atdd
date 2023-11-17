@@ -3,12 +3,14 @@ version: '3'
 services:
   database:
     image: postgres
+    container_name: db
     environment:
       POSTGRES_DB: atdd-db
       POSTGRES_USER: atdd-user
       POSTGRES_PASSWORD: atdd-password
     volumes:
     - db-volume:/var/lib/postgresql/data
+
 
   api:
     image: leonardofacens/atdd-devops-e-qas  # Busca a imagem no Docker hub
@@ -18,11 +20,12 @@ services:
     environment:
       DB_HOST: database
       SPRING_PROFILES_ACTIVE: ${AMBIENTE}
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/atdd-db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/atdd-db
       SPRING_DATASOURCE_USERNAME: atdd-user
       SPRING_DATASOURCE_PASSWORD: atdd-password
     ports:
       - "9090:9090"
+
 volumes:
   db-volume:
     labels: 
