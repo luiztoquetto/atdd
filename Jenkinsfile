@@ -104,10 +104,9 @@ pipeline {
     }
     stage('Staging - Get Cursos') {
       steps {
-        sleep(time:3, unit: "SECONDS")
         script {
           if (isUnix()) {
-            sh 'curl -L http://localhost:9090/cursos'
+            sh 'curl http://0.0.0.0:9090/cursos'
           } else {
             // Comando para windows
           }
