@@ -104,11 +104,13 @@ pipeline {
     }
     stage('Staging - Get Cursos') {
       steps {
-        timeout(time: 3, unit: 'SECONDS') {
-          if (isUnix()) {
-            sh 'curl http://localhost:9090/cursos'
-          } else {
-            // Comando para windows
+        script {
+          timeout(time: 3, unit: 'SECONDS') {
+            if (isUnix()) {
+              sh 'curl http://localhost:9090/cursos'
+            } else {
+              // Comando para windows
+            }
           }
         }
       }
