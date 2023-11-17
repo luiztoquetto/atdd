@@ -10,24 +10,18 @@ services:
       POSTGRES_PASSWORD: atdd-password
     volumes:
     - db-volume:/var/lib/postgresql/data
-    networks:
-      - standard
 
   api:
     image: leonardofacens/atdd-devops-e-qas  # Busca a imagem no Docker hub
     # build: . # Utiliza o Dockerfile do projeto
-    depends_on:
-      - database
     environment:
-      DB_HOST: database
+      DB_HOST: db
       SPRING_PROFILES_ACTIVE: ${AMBIENTE}
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/atdd-db
       SPRING_DATASOURCE_USERNAME: atdd-user
       SPRING_DATASOURCE_PASSWORD: atdd-password
     ports:
       - "9090:9090"
-    networks:
-      - standard
 
 networks:
   standard:
