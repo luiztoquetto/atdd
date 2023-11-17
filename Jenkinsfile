@@ -107,7 +107,7 @@ pipeline {
         sleep(time:3, unit: "SECONDS")
         script {
           if (isUnix()) {
-            sh 'curl http://localhost:9090/cursos'
+            sh 'curl -L http://localhost:9090/cursos'
           } else {
             // Comando para windows
           }
