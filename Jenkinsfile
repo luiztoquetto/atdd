@@ -43,8 +43,8 @@ pipeline {
           maximumInstructionCoverage: '90',
           sourcePattern: '**/src',
           inclusionPattern: '**/*.class',
-          exclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*, **/ServletInitializer.*',
-          sourceExclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*, **/ServletInitializer.*'
+          exclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*,**/ServletInitializer.*,**/Module.java',
+          sourceExclusionPattern: '**/infra/repositorios/**/*,**/presenter/dtos/**/*, **/AtddApplication.*, **/ServletInitializer.*,**/Module.java'
         ])
         script {
           if (currentBuild.result == 'FAILURE') {
@@ -101,8 +101,10 @@ pipeline {
       steps {
         script {
           if (isUnix()) {
-            sh 'AMBIENTE=homolog docker compose up -d --no-color --wait'
-            sh 'docker compose ps'
+            sh """
+              AMBIENTE=homolog docker compose up -d --no-color --wait
+              docker compose ps
+            """
           } else {
             bat 'AMBIENTE=homolog docker compose up -d --no-color --wait'
             bat 'docker compose ps'

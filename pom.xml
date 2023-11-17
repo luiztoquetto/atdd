@@ -98,6 +98,7 @@
 						<exclude>**/presenter/dtos/**/*</exclude>
 						<exclude>**/AtddApplication.*</exclude>
 						<exclude>**/ServletInitializer.*</exclude>
+						<exclude>**/Module.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
