@@ -99,6 +99,7 @@ pipeline {
     }
     stage('Staging - Run') {
       steps {
+        sleep(time:10,unit:"SECONDS")
         script {
           if (isUnix()) {
             sh """
