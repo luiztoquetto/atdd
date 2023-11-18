@@ -126,7 +126,7 @@ pipeline {
         }
       }
     }
-    stage('Prod - Deploy (restartig azure app service)') {
+    stage('Prod - Deploy (restarting azure app service)') {
       steps {
         script {
           if (isUnix()) {
