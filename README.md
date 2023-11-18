@@ -42,12 +42,14 @@ Esse projeto irá contemplar:
     - Banco de dados H2
 
 - Ambiente Homologação
-    - Pipeline rodando [a preencher]
-    - Banco de dados PostgreSQL
+    - Pipeline rodando um GET /cursos no ambiente de homologação
+    - Banco de dados PostgreSQL (local)
 
 - Ambiente Produção
-    - Pipeline rodando [a preencher]
+    - Pipeline rodando um restart na máquina da Azure que está rodando a imagem do docker gerada anteriormente
     - Banco de dados PostgreSQL
     - Rodar na Azure
+        - App Service
+        - Azure PostgreSQL Database
 
-> Para o banco de dados H2, fizemos um seed dos dados no arquivo `AtddApplication.java`.
+> Para o banco de dados, fizemos um seed dos dados no arquivo `AtddApplication.java` pois achamos ais prático para a disciplina.
