@@ -2,6 +2,7 @@ pipeline {
   agent any
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-leonardofacens	')
+    AZURE_CREDENTIALS = credentials('f8e4af6e-217b-4309-8ba9-10180e77d7d2')
   }
   stages {
     stage("Verify tooling") {
@@ -119,6 +120,19 @@ pipeline {
         script {
           if (isUnix()) {
             sh 'curl http://localhost:9090/cursos'
+          } else {
+            // Comando para windows
+          }
+        }
+      }
+    }
+    stage('Prod - Deploy (restartig azure app service)') {
+      steps {
+        script {
+          if (isUnix()) {
+            sh 'curl -L https://aka.ms/InstallAzureCli | bash'
+            sh 'az login -u $AZURE_CREDENTIALS_USR -p $AZURE_CREDENTIALS_PSW'
+            sh 'az webapp restart --name facens-devops-qa-ac2 --resource-group facens-devops-qa-ac2'
           } else {
             // Comando para windows
           }
