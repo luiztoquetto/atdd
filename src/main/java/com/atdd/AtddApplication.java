@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 
 import com.atdd.aula.dominio.entidades.Aula;
 import com.atdd.aula.dominio.repositorios.AulaRepositorio;
@@ -27,9 +26,6 @@ public class AtddApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AtddApplication.class, args);
 	}
-
-	@Autowired
-	private Environment environment;
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
