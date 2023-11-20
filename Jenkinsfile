@@ -121,7 +121,7 @@ pipeline {
           if (isUnix()) {
             sh 'curl http://localhost:9090/cursos'
           } else {
-            // Comando para windows
+            bat 'curl http://localhost:9090/cursos'
           }
         }
       }
@@ -133,7 +133,8 @@ pipeline {
             sh 'az login -u $AZURE_CREDENTIALS_USR -p $AZURE_CREDENTIALS_PSW'
             sh 'az webapp restart --name facens-devops-qa-ac2 --resource-group facens-devops-qa-ac2'
           } else {
-            // Comando para windows
+            bat 'az login -u $AZURE_CREDENTIALS_USR -p $AZURE_CREDENTIALS_PSW'
+            bat 'az webapp restart --name facens-devops-qa-ac2 --resource-group facens-devops-qa-ac2'
           }
         }
       }
@@ -144,8 +145,10 @@ pipeline {
       script {
         if (isUnix()) {
           sh 'docker logout'
+          sh 'az logout'
         } else {
           bat 'docker logout'
+          bat 'az logout'
         }
       }
     }
