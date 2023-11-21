@@ -20,7 +20,6 @@ import com.atdd.usuario.dominio.repositorios.UsuarioRepositorio;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-//Laura Cecilia - 200343
 public class UsuarioControllerIntegrationTests {
 
     @Autowired
@@ -29,15 +28,15 @@ public class UsuarioControllerIntegrationTests {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    // Laura Cecilia - 200343
     @Test
     public void deveRetornarOsUsuariosCadastrados() throws Exception {
         List<Usuario> usuarios = Arrays.asList(
-        		new Usuario("Usuario 1", 1, Arrays.asList()),
+                new Usuario("Usuario 1", 1, Arrays.asList()),
                 new Usuario("Usuario 2", 2, Arrays.asList()),
                 new Usuario("Usuario 3", 1, Arrays.asList()),
                 new Usuario("Usuario 4", 2, Arrays.asList()),
-                new Usuario("Usuario 5", 1, Arrays.asList())
-                );
+                new Usuario("Usuario 5", 1, Arrays.asList()));
 
         usuarioRepositorio.salvarUsuario(usuarios);
 
@@ -47,5 +46,4 @@ public class UsuarioControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Usuario 1"));
     }
-	
 }

@@ -27,6 +27,7 @@ public class CursoControllerIntegrationTests {
     @Autowired
     private CursoRepositorio cursoRepositorio;
 
+    // Leonardo Dimarchi - 200109
     @Test
     public void deveRetornarOsCursosCadastrados() throws Exception {
         List<Curso> cursos = Arrays.asList(
